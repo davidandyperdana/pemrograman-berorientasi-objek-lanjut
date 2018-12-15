@@ -1,0 +1,117 @@
+
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+/**
+ *
+ * @author Nopel orpendi
+ */
+public class LapenSocketClient {
+    public static void main(String[] args) {
+        try {
+            Socket s = new Socket("localhost", 5136);
+            InputStream is = s.getInputStream();
+            OutputStream os = s.getOutputStream();           
+            String pesan = "Siapa anda ?? \r\n";           
+            os.write(pesan.getBytes());           
+            int c;
+            while(true)
+            {
+                c=is.read();
+                System.out.print((char)c);
+               
+                if((char)c=='\n')
+                    break;
+            }           
+            is.close();
+            os.close();
+            s.close();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(LapenSocketClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LapenSocketClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+/**
+ *
+ * @author Nopel orpendi
+ */
+public class LapenSocketServer {
+    
+   public static void main(String[] args) {
+        try {
+            ServerSocket ss = new ServerSocket(5136);
+            Socket s = ss.accept();
+            InputStream is = s.getInputStream();
+            OutputStream os = s.getOutputStream();          
+            String respon = "Saya Fariz\r\n";          
+            int c;
+            while(true)
+            {
+                c=is.read();
+                System.out.print((char)c);
+              
+                if((char)c=='\n')
+                    break;
+            }
+            os.write(respon.getBytes());
+            os.flush();          
+            os.close();
+            is.close();
+            s.close();                     
+        } catch (IOException ex) {
+            Logger.getLogger(LapenSocketServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    } 
+}
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package socket;
+
+/**
+ *
+ * @author Nopel orpendi
+ */
+public class Socket {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+    
+}
+
